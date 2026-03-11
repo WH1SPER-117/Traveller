@@ -21,55 +21,76 @@ fetchListing();
 
 const fetchListing = async ()=>{
 
-const res = await API.get(`/listings/${id}`);
+try{
 
+const res = await API.get(`/listings/${id}`);
 setListing(res.data);
+
+}catch(err){
+console.error(err);
+}
 
 };
 
 if(!listing){
-return <div>Loading...</div>;
+return <div className="text-center text-white mt-40">Loading...</div>;
 }
 
 return(
 
-<div>
+<div
+className="min-h-screen bg-cover bg-center"
+style={{ backgroundImage: "url('/travellerBG4.png')" }}
+>
+
+<div className="absolute inset-0 bg-black/60"></div>
 
 <Navbar/>
 
-<div className="max-w-4xl mx-auto p-6">
+<div className="relative max-w-5xl mx-auto px-6 pt-32 pb-16 text-white">
+
+<div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl overflow-hidden">
 
 <img
 src={listing.imageUrl}
-className="w-full h-96 object-cover rounded"
+className="w-full h-[420px] object-cover"
 />
 
-<h1 className="text-3xl font-bold mt-4">
+<div className="p-8">
+
+<h1 className="text-4xl font-bold">
 {listing.title}
 </h1>
 
-<p className="text-gray-600">
-{listing.location}
+<p className="text-xl text-gray-300 mt-2">
+📍 {listing.location}
 </p>
 
-<p className="mt-4">
+<p className="mt-6 text-gray-200 leading-relaxed">
 {listing.description}
 </p>
 
-<p className="mt-2 font-semibold">
+{listing.price && (
+<p className="mt-4 text-lg font-semibold text-orange-400">
 Price: ${listing.price}
 </p>
+)}
 
-<p className="text-sm text-gray-500">
+<p className="mt-2 text-sm text-gray-400">
 By {listing.creator?.name}
 </p>
 
+<div className="mt-6">
 <LikeButton listing={listing} setListing={setListing}/>
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 </div>
 
 );
-
 }

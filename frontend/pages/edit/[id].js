@@ -16,17 +16,14 @@ price:""
 });
 
 useEffect(()=>{
-
 if(id){
 fetchListing();
 }
-
 },[id]);
 
 const fetchListing = async ()=>{
 
 const res = await API.get(`/listings/${id}`);
-
 setForm(res.data);
 
 };
@@ -47,26 +44,30 @@ e.preventDefault();
 try{
 
 await API.put(`/listings/${id}`,form);
-
 router.push("/dashboard");
 
 }catch(err){
-
 alert("Update failed");
-
 }
 
 };
 
 return(
 
-<div>
+<div
+className="min-h-screen bg-cover bg-center"
+style={{ backgroundImage: "url('/travellerBG3.png')" }}
+>
+
+<div className="absolute inset-0 bg-black/60"></div>
 
 <Navbar/>
 
-<div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+<div className="relative flex justify-center items-center pt-32 pb-16">
 
-<h1 className="text-2xl font-bold mb-4">
+<div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-8 w-[420px] text-white">
+
+<h1 className="text-3xl font-bold mb-6 text-center">
 Edit Listing
 </h1>
 
@@ -76,37 +77,39 @@ Edit Listing
 name="title"
 value={form.title}
 onChange={handleChange}
-className="w-full border p-2"
+className="w-full p-3 rounded-lg bg-white/20 outline-none"
 />
 
 <input
 name="location"
 value={form.location}
 onChange={handleChange}
-className="w-full border p-2"
+className="w-full p-3 rounded-lg bg-white/20 outline-none"
 />
 
 <textarea
 name="description"
 value={form.description}
 onChange={handleChange}
-className="w-full border p-2"
+className="w-full p-3 rounded-lg bg-white/20 outline-none"
 />
 
 <input
 name="price"
 value={form.price}
 onChange={handleChange}
-className="w-full border p-2"
+className="w-full p-3 rounded-lg bg-white/20 outline-none"
 />
 
 <button
-className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg font-semibold"
 >
-Update
+Update Listing
 </button>
 
 </form>
+
+</div>
 
 </div>
 

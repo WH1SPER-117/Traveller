@@ -1,57 +1,84 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
 
-  const router = useRouter();
+const router = useRouter();
+const [isLoggedIn,setIsLoggedIn] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
+useEffect(()=>{
 
-  return (
-    <nav className="bg-white shadow">
-      <div className="max-w-6xl mx-auto p-4 flex justify-between items-center">
+const token = localStorage.getItem("token");
+setIsLoggedIn(!!token);
 
-        {/* Logo + Website Name */}
-        <Link href="/" className="flex items-center gap-2">
+},[]);
 
-          <Image
-            src="/travellerlogo.png"
-            alt="Traveller Logo"
-            width={40}
-            height={40}
-          />
+const handleLogout = ()=>{
 
-          <span className="font-bold text-xl text-blue-600">
-            Traveller
-          </span>
+localStorage.removeItem("token");
+setIsLoggedIn(false);
+router.push("/login");
 
-        </Link>
+};
 
-        {/* Navigation */}
-        <div className="space-x-6 flex items-center">
+return(
 
-          <Link href="/" className="hover:text-blue-600">
-            Home
-          </Link>
+<nav className="absolute top-0 left-0 w-full z-50">
 
-          <Link href="/dashboard" className="hover:text-blue-600">
-            Dashboard
-          </Link>
+<div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center backdrop-blur-md bg-black/20 rounded-b-xl">
 
-          <button
-            onClick={handleLogout}
-            className="text-red-500 hover:text-red-700"
-          >
-            Logout
-          </button>
+{/* logo + name */}
+<Link href="/" className="flex items-center gap-2">
 
-        </div>
+<img
+src="/travellerlogo.png"
+className="h-14 w-auto"
+/>
 
-      </div>
-    </nav>
-  );
+<span className="text-3xl font-bold text-white">
+Traveller
+</span>
+
+</Link>
+
+{/* navigation */}
+<div className="flex items-center gap-6 text-lg text-white">
+
+<Link href="/" className="hover:text-orange-300">
+Home
+</Link>
+
+{isLoggedIn && (
+
+<Link href="/dashboard" className="hover:text-orange-300">
+Dashboard
+</Link>
+
+)}
+
+{isLoggedIn ? (
+
+<button
+onClick={handleLogout}
+className="bg-orange-500 hover:bg-orange-600 px-4 py-1 rounded-lg"
+>
+Logout
+</button>
+
+) : (
+
+<Link href="/login" className="hover:text-orange-300">
+Login
+</Link>
+
+)}
+
+</div>
+
+</div>
+
+</nav>
+
+);
 }

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import API from "../services/api";
-import Navbar from "../components/Navbar";
 
-export default function Login(){
+export default function Login() {
 
 const router = useRouter();
 
@@ -23,7 +22,7 @@ password
 
 localStorage.setItem("token",res.data.token);
 
-router.push("/");
+router.push("/dashboard");
 
 }catch(err){
 
@@ -35,15 +34,30 @@ alert("Login failed");
 
 return(
 
-<div>
+<div
+className="min-h-screen bg-cover bg-center flex items-center justify-center"
+style={{ backgroundImage: "url('/travellerBG.png')" }}
+>
 
-<Navbar/>
+{/* dark overlay */}
+<div className="absolute inset-0 bg-black/50"></div>
 
-<div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+{/* login card */}
+<div className="relative bg-white/10 backdrop-blur-md p-10 rounded-2xl shadow-xl w-[380px] text-white">
 
-<h1 className="text-2xl font-bold mb-4">
-Login
+{/* logo */}
+<div className="flex flex-col items-center mb-6">
+
+<img
+src="/travellerlogo.png"
+className="h-16 mb-2"
+/>
+
+<h1 className="text-3xl font-bold">
+Welcome Back
 </h1>
+
+</div>
 
 <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -51,28 +65,40 @@ Login
 type="email"
 placeholder="Email"
 onChange={(e)=>setEmail(e.target.value)}
-className="w-full border p-2 rounded"
+className="w-full p-3 rounded-lg bg-white/20 placeholder-gray-200 outline-none"
 />
 
 <input
 type="password"
 placeholder="Password"
 onChange={(e)=>setPassword(e.target.value)}
-className="w-full border p-2 rounded"
+className="w-full p-3 rounded-lg bg-white/20 placeholder-gray-200 outline-none"
 />
 
 <button
-className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+className="w-full bg-orange-500 hover:bg-orange-600 transition py-3 rounded-lg font-semibold"
 >
 Login
 </button>
 
 </form>
 
+<p className="text-center mt-4 text-sm">
+
+Don't have an account?
+
+<span
+onClick={()=>router.push("/register")}
+className="ml-1 text-orange-300 cursor-pointer"
+>
+Sign Up
+</span>
+
+</p>
+
 </div>
 
 </div>
 
 );
-
 }
