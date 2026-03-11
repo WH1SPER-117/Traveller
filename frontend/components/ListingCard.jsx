@@ -1,7 +1,13 @@
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
+
+
 
 export default function ListingCard({ listing }) {
 
+    const timeAgo = formatDistanceToNow(new Date(listing.createdAt), {
+  addSuffix: true
+});
 return(
 
 <div className="bg-white/10 backdrop-blur-md rounded-xl flex overflow-hidden shadow-lg hover:shadow-xl transition">
@@ -27,6 +33,10 @@ className="w-72 h-48 object-cover"
 {listing.description}
 </p>
 
+<p className="text-xs text-gray-400">
+Posted {timeAgo}
+</p>
+
 </div>
 
 <div className="flex justify-between items-center mt-4">
@@ -34,6 +44,8 @@ className="w-72 h-48 object-cover"
 <span className="text-sm text-gray-300">
 By {listing.creator?.name}
 </span>
+
+
 
 <Link
 href={`/listing/${listing._id}`}

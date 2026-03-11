@@ -22,7 +22,7 @@ password
 
 localStorage.setItem("token",res.data.token);
 
-router.push("/dashboard");
+router.push("/");
 
 }catch(err){
 
