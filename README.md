@@ -34,7 +34,7 @@ I select the MERN style stack (Next js, Node js, Express, MongoDB) because it al
 
 ## How authentication works in the application (JWT)
 1. user register with email and password
-2. password is encripting by using bycript before storing DB
+2. password is encripting by using bcrypt before storing DB
 3. when user log in server verify the credentials and if valid server genarate token and send it to client
 4. The client stores the token and includes it in the Authorization header for protected API requests
 
