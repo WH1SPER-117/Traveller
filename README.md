@@ -25,5 +25,4 @@ Database: MongoDB Atlas
 Image Storage: Cloudinary
 
 ## Live Demo
-Frontend: <link>
-Backend: <link>
+[<link>](https://traveller-two-gamma.vercel.app/)
